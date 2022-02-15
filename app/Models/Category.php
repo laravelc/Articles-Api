@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\CategoryFactory;
 use Givebutter\LaravelKeyable\Keyable;
 use Illuminate\Database\Eloquent\{Builder, Collection, Factories\HasFactory, Model, SoftDeletes};
 use Givebutter\LaravelKeyable\Models\ApiKey;
@@ -30,7 +31,7 @@ use Orchid\Screen\AsSource;
  * @property-read Collection|\App\Models\Article[] $articles
  * @property-read int|null $articles_count
  * @method static Builder|Category defaultSort(string $column, string $direction = 'asc')
- * @method static \Database\Factories\CategoryFactory factory(...$parameters)
+ * @method static CategoryFactory factory(...$parameters)
  * @method static Builder|Category filters(?\Orchid\Filters\HttpFilter $httpFilter = null)
  * @method static Builder|Category filtersApply(iterable $filters = [])
  * @method static Builder|Category filtersApplySelection($selection)
@@ -51,7 +52,8 @@ use Orchid\Screen\AsSource;
 class Category extends Model
 {
     use HasFactory;
-    use AsSource, Filterable;
+    use AsSource;
+    use Filterable;
     use SoftDeletes;
     use Keyable;
 

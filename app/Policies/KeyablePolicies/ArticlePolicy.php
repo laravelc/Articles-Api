@@ -12,11 +12,9 @@ class ArticlePolicy
 
     /**
      * @param ApiKey $apiKey
-     * @param ClientApplication $keyable
-     * @param $object
      * @return bool
      */
-    public function article(ApiKey $apiKey, ClientApplication $keyable, $object): bool
+    public function article(ApiKey $apiKey): bool
     {
         $application = $apiKey->keyable;
         return $application->hasAccess("api.articles.manage");

@@ -38,5 +38,7 @@ use Illuminate\Routing\Controller as BaseController;
  */
 class Controller extends BaseController
 {
-    use AuthorizesKeyableRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesKeyableRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 }

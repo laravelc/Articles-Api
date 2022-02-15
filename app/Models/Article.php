@@ -80,7 +80,8 @@ use Orchid\Screen\AsSource;
 class Article extends Model
 {
     use HasFactory;
-    use AsSource, Filterable;
+    use AsSource;
+    use Filterable;
     use SoftDeletes;
     use Keyable;
 

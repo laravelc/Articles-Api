@@ -12,11 +12,9 @@ class AuthorPolicy
 
     /**
      * @param ApiKey $apiKey
-     * @param ClientApplication $keyable
-     * @param $object
      * @return bool
      */
-    public function author(ApiKey $apiKey, ClientApplication $keyable, $object): bool
+    public function author(ApiKey $apiKey): bool
     {
         $application = $apiKey->keyable;
         return $application->hasAccess("api.authors.manage");

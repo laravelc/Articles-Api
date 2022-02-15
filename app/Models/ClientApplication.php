@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\ClientApplicationFactory;
 use Givebutter\LaravelKeyable\Keyable;
 use Givebutter\LaravelKeyable\Models\ApiKey;
 use Illuminate\Database\Eloquent\Builder;
@@ -43,7 +44,7 @@ use Orchid\Screen\AsSource;
  * @method static Builder|ClientApplication byAccess(string $permitWithoutWildcard)
  * @method static Builder|ClientApplication byAnyAccess($permitsWithoutWildcard)
  * @method static Builder|ClientApplication defaultSort(string $column, string $direction = 'asc')
- * @method static \Database\Factories\ClientApplicationFactory factory(...$parameters)
+ * @method static ClientApplicationFactory factory(...$parameters)
  * @method static Builder|ClientApplication filters(?HttpFilter $httpFilter = null)
  * @method static Builder|ClientApplication filtersApply(iterable $filters = [])
  * @method static Builder|ClientApplication filtersApplySelection($selection)

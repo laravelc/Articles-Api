@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\AuthorFactory;
 use Eloquent;
 use Givebutter\LaravelKeyable\Keyable;
 use Illuminate\Database\Eloquent\{Builder, Collection, Factories\HasFactory, Model, SoftDeletes};
@@ -37,7 +38,7 @@ use Orchid\Screen\AsSource;
  * @property-read Collection|\App\Models\Article[] $articles
  * @property-read int|null $articles_count
  * @method static Builder|Author defaultSort(string $column, string $direction = 'asc')
- * @method static \Database\Factories\AuthorFactory factory(...$parameters)
+ * @method static AuthorFactory factory(...$parameters)
  * @method static Builder|Author filters(?HttpFilter $httpFilter = null)
  * @method static Builder|Author filtersApply(iterable $filters = [])
  * @method static Builder|Author filtersApplySelection($selection)
@@ -59,7 +60,8 @@ use Orchid\Screen\AsSource;
 class Author extends Model
 {
     use HasFactory;
-    use AsSource, Filterable;
+    use AsSource;
+    use Filterable;
     use SoftDeletes;
     use Keyable;
 
