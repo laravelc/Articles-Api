@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Policies\KeyablePolicies;
+
+use App\Models\ClientApplication;
+use Givebutter\LaravelKeyable\Models\ApiKey;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class ArticlePolicy
+{
+    use HandlesAuthorization;
+
+    /**
+     * @param ApiKey $apiKey
+     * @param ClientApplication $keyable
+     * @param $object
+     * @return bool
+     */
+    public function article(ApiKey $apiKey, ClientApplication $keyable, $object): bool
+    {
+        $application = $apiKey->keyable;
+        return $application->hasAccess("api.articles.manage");
+    }
+}

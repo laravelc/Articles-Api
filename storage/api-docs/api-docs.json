@@ -1,0 +1,833 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Articles",
+        "description": "Сервис статей",
+        "contact": {
+            "email": "av.pavlow@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "API Server"
+        },
+        {
+            "url": "https://projects.dev/api/v1",
+            "description": "L5 Swagger OpenApi Server"
+        }
+    ],
+    "paths": {
+        "/api/article": {
+            "post": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Создание статьи",
+                "description": "Сохранить",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Поля",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArticleRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Не переданы данные авторизации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Доступ в api запрещен или приложение не найдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации."
+                    },
+                    "201": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArticleResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/article/{id}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Получение статьи",
+                "description": "Display the specified resource.",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID статьи",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Не переданы данные авторизации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Доступ в api запрещен или приложение не найдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации."
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArticleResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Удаление статьи",
+                "description": "Remove the specified resource from storage.",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID статьи",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArticleResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Обновить статьи",
+                "description": "Update the specified resource in storage.",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID статьи",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Поля",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArticleRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Не переданы данные авторизации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации."
+                    },
+                    "403": {
+                        "description": "Доступ в api запрещен или приложение не найдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArticleResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/articles/search": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "summary": "List of articles",
+                "description": "List of articles",
+                "operationId": "articleList",
+                "requestBody": {
+                    "description": "Поля",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArticleSearchRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#Article"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/article/{id}/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Получение списка авторов статьи",
+                "description": "Получение списка авторов статьи",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID статьи",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthorResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Удаление адресата статьи",
+                "description": "Remove the specified resource from storage.",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID статьи",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "author_id",
+                        "in": "path",
+                        "description": "Идентификатор автора",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthorResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Обновление списка авторов статьи",
+                "description": "Update the specified resource in storage.",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID статьи",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Поля",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthorResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/client_application": {
+            "get": {
+                "tags": [
+                    "Разное"
+                ],
+                "summary": "Получить информацию о текущем приложении (через передаваемый api ключ)",
+                "description": "Возращает документ в json",
+                "operationId": "show",
+                "responses": {
+                    "401": {
+                        "description": "Не переданы данные авторизации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Доступ в Api запрещен или приложение не найдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "description": "Сообщение об ошибке",
+                                            "type": "string",
+                                            "example": "Доступ запрещен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Успешный ли запрос",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ClientApplication"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ArticleRequest": {
+                "description": "Запрос создание статьи",
+                "required": [
+                    "categories",
+                    "authors"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Заголовок",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "source": {
+                        "description": "Откуда взята статья",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "description": {
+                        "description": "Описание",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "url": {
+                        "description": "url",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "image_url": {
+                        "description": "Связанная картинка",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "published_at": {
+                        "description": "Дата публикации в формате Y-m-d\\TH:i:s.uP",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2021-10-31T09:15:57.572+03:00",
+                        "nullable": true
+                    },
+                    "content": {
+                        "description": "Контент",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "type_name": {
+                        "description": "Тип",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "authors": {
+                        "description": "Авторы статьи статьи",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Author"
+                        }
+                    },
+                    "categories": {
+                        "description": "Категории",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Category"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ArticleSearchRequest": {
+                "description": "Запрос поиск статьи",
+                "required": [
+                    "category",
+                    "authors"
+                ],
+                "properties": {
+                    "type_name": {
+                        "description": "Тип",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "q": {
+                        "description": "Текст",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "from_date": {
+                        "description": "Поиск от даты в формате Y-m-d\\TH:i:s.uP",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2021-10-31T09:15:57.572+03:00",
+                        "nullable": true
+                    },
+                    "to_date": {
+                        "description": "Поиск до даты в формате Y-m-d\\TH:i:s.uP",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2021-10-31T09:15:57.572+03:00",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "AuthorDeleteRequest": {
+                "description": "Запрос на удаление реципиента",
+                "required": [],
+                "properties": {
+                    "authors": {
+                        "description": "Авторы статьи",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Author"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "AuthorDeleteRequest"
+                }
+            },
+            "AuthorRequest": {
+                "description": "Запрос на планирование отправки статьи",
+                "required": [],
+                "properties": {
+                    "authors": {
+                        "description": "Авторы статьи",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Author"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "AuthorRequest"
+                }
+            },
+            "ArticleResource": {
+                "description": "Статья",
+                "required": [
+                    "id",
+                    "content",
+                    "status",
+                    "authors",
+                    "created_at",
+                    "scheduled_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "CREATED"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Название статьи"
+                    },
+                    "authors": {
+                        "description": "Автор",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Author"
+                        }
+                    },
+                    "categories": {
+                        "description": "Категория",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Category"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ArticleResponse"
+                }
+            },
+            "AuthorResource": {
+                "description": "Статья",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "xml": {
+                    "name": "AuthorResponse"
+                }
+            },
+            "CategoryResource": {
+                "description": "Категория",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "xml": {
+                    "name": "CategoryResponse"
+                }
+            },
+            "Article": {
+                "description": "Статья",
+                "required": [
+                    "title",
+                    "content",
+                    "author_id"
+                ]
+            },
+            "Author": {
+                "description": "Автор",
+                "required": [
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Category": {
+                "description": "Категория",
+                "required": [
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ClientApplication": {
+                "description": "Приложение для авторизации API",
+                "required": [
+                    "name",
+                    "callback_url"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID клиентского приложения",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Название клиентского приложения",
+                        "type": "string"
+                    },
+                    "callback_url": {
+                        "description": "URL для передачи событий по webhook с клиентского приложения",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Дата создания",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2022-01-22T20:30:44+0300"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ClientApplication"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Статьи",
+            "description": "Работа с статьими"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
