@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PositionsController extends Controller
+class ExperimentalController extends Controller
 {
     /**
      * Код проверки
@@ -40,5 +40,6 @@ class PositionsController extends Controller
             ]
         );
     }
+
 
 }
