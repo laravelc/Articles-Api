@@ -25,13 +25,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         /**
-         * Listener каждого SQL-запроса. Нужно чтобы узнать сколько времени выполняется запрос
+         * Listener каждого SQL-запроса. Нужно чтобы узнать сколько времени выполняется запрос, место вызова, сам запрос
          *
          */
         DB::listen(function ($query) {
-            $query->sql; // выполненная sql-строка
-            $query->bindings; // параметры, переданные в запрос (то, что подменяет '?' в sql-строке)
-            $query->time; // время выполнения запроса
+            $location = collect(debug_backtrace())->filter(function ($trace) {
+                return !str_contains($trace['file'], 'vendor/');
+            })->first(); // берем первый элемент не из каталога вендора
+            $bindings = implode(", ", $query->bindings); // форматируем привязку как строку
+            Log::info("
+               ------------
+               Sql: $query->sql
+               Bindings: $bindings
+               Time: $query->time
+               File: ${location['file']}
+               Line: ${location['line']}
+               ------------
+        ");
         });
     }
 }
