@@ -68,14 +68,14 @@ class ArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
+            'title' => 'required|string', //Должно быть поле и оно заполнено
             'source' => 'required|string',
             'description' => 'required|string',
             'url' => 'required|string',
             'image_url' => 'required|string',
-            'published_at' => 'date_format:Y-m-d\TH:i:s.uP',
+            'published_at' => 'present|date_format:Y-m-d\TH:i:s.uP',//Поле должно быть но не обязательно заполнено
             'content' => 'required|string',
-            'type_name' => 'required|string|max:50',
+            'type_name' => 'filled|string|max:50',//Обязательно заполнено данными только если оно пристутсвует
             'authors' => 'required|array',
             'authors.*' => 'required|array',
             'authors.*.name' => 'required|string',
