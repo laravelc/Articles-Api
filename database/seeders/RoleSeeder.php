@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Orchid\Platform\Models\Role;
 use Orchid\Platform\Models\User;
 use Orchid\Support\Facades\Dashboard;
@@ -30,10 +30,10 @@ class RoleSeeder extends Seeder
      */
     public function prepareTables(): void
     {
-        DB::statement('TRUNCATE role_users');
-        DB::statement('TRUNCATE role_client_applications');
+        DB::table('role_users')->truncate();
+        DB::table('role_client_applications')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
-        DB::statement('TRUNCATE roles;');
+        DB::table('roles')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }
 
